@@ -3,7 +3,7 @@ class Article < ApplicationRecord
   belongs_to :category
   
   has_many :tags
-
+  has_many :comments, through: :author
 
   validates :title, presence: true
   validates :description, presence: true
