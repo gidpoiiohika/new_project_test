@@ -1,14 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show update destroy ]
-
   def index
     @comments = Comment.all
 
     render json: @comments
-  end
-
-  def show
-    render json: @comment
   end
 
   def create
@@ -22,10 +16,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def set_comment
-    @comment = Comment.find(params[:id])
-  end
 
   def comment_params
     params.require(:comment).permit(:title, :user_id)

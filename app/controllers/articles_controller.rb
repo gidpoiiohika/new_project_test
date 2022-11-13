@@ -21,14 +21,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def update
-    if @article.update(article_params)
-      render json: @article
-    else
-      render json: @article.errors, status: :unprocessable_entity
-    end
-  end
-
   def destroy
     @article.destroy
   end
