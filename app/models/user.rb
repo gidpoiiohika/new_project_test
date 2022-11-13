@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :validatable, :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
 
+  has_many :articles, foreign_key: 'author_id'
+
   enum role:   %i[admin author],     _default: "author"
   enum status: %i[blocked unlocked], _default: "unlocked"
 
