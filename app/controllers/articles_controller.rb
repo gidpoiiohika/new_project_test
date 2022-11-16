@@ -1,13 +1,12 @@
 class ArticlesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_article, only: %i[ show update destroy ]
 
   def index
     @articles = Article.filtered(filter_params, current_user)
   end
 
-  def show
-    @comments = @article.comments.sort_comment
-  end
+  def show; end
 
   def create
     @article = Article.new article_params

@@ -24,15 +24,17 @@ class User < ApplicationRecord
     end
   end
 
+  def active_for_authentication?
+    super and self.unlocked?
+  end
+
+  private
+
   def jwt_payload
     super
   end
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later(wait: 5.second)
-  end
-
-  def active_for_authentication?
-    super and self.unlocked?
   end
 end

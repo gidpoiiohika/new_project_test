@@ -1,6 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  devise_for :users, defaults: { format: :json }, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    confirmations: 'users/confirmations'
+  }
   resources :comments, only: [:show, :create, :update] do
     member {
       post :ratings
@@ -14,9 +19,4 @@ Rails.application.routes.draw do
   # end
   
   mount Sidekiq::Web => '/sidekiq'
-  
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
 end

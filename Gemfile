@@ -14,6 +14,7 @@ gem 'rack-cors'
 gem "faker"
 gem 'sidekiq'
 gem 'jbuilder'
+gem 'cancancan'
 
 group :development, :test do
   gem "letter_opener"

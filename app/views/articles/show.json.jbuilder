@@ -23,7 +23,8 @@ json.category do
 end
 
 
-json.comments @comments.each do |field|
+comments = @article.comments.sort_comment
+json.comments comments.each do |field|
   author = field.user
 
   json.id field.id
