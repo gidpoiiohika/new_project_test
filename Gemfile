@@ -13,6 +13,7 @@ gem 'devise-jwt'
 gem 'rack-cors'
 gem "faker"
 gem 'sidekiq'
+gem 'jbuilder'
 
 group :development, :test do
   gem "letter_opener"

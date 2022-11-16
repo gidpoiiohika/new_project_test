@@ -1,23 +1,36 @@
 class CommentsController < ApplicationController
-  def index
-    @comments = Comment.all
+  before_action :set_comment, only: %i[ show update ratings ]
 
-    render json: @comments
-  end
+  def show; end
 
   def create
-    @comment = Comment.new(comment_params)
+    commentable = Article.find(params[:comment][:article_id])
+    @comment = commentable.comments.build comment_params
 
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render :show
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: { errors: @comment.errors.messages }, status: 404
+    end
+  end
+
+  def ratings
+    count_rating = @comment.rating + 1
+    @comment.rating = count_rating
+    if @comment.save
+      render :show
+    else
+      render json: { errors: @comment.errors.messages }, status: 404
     end
   end
 
   private
 
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
   def comment_params
-    params.require(:comment).permit(:title, :user_id)
+    params.require(:comment).permit(:title, :user_id, :rating)
   end
 end

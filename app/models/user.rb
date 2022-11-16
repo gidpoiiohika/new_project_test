@@ -1,10 +1,10 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
-  devise :database_authenticatable, :registerable, :validatable, :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
+  devise :database_authenticatable, :recoverable, :registerable, :validatable, 
+          :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :articles, foreign_key: 'author_id'
-  has_many :comments
 
   enum role:   %i[admin author],     _default: "author"
   enum status: %i[blocked unlocked], _default: "unlocked"
@@ -30,5 +30,9 @@ class User < ApplicationRecord
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later(wait: 5.second)
+  end
+
+  def active_for_authentication?
+    super and self.unlocked?
   end
 end

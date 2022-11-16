@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_200242) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_033039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_200242) do
     t.bigint "category_id", null: false
     t.datetime "deleted_at"
     t.index ["author_id"], name: "index_articles_on_author_id"
-    t.index ["category_id"], name: "index_articles_on_category_id", unique: true
+    t.index ["category_id"], name: "index_articles_on_category_id"
     t.index ["title"], name: "index_articles_on_title"
   end
 
@@ -39,6 +39,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_200242) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.bigint "rating", default: 0, null: false
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["commentable_type"], name: "index_comments_on_commentable_type"
+    t.index ["rating"], name: "index_comments_on_rating"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -64,6 +70,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_200242) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "jti", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true

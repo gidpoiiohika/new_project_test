@@ -3,7 +3,9 @@ class Article < ApplicationRecord
   belongs_to :category
   
   has_many :tags
-  has_many :comments, through: :author
+  has_many :comments, as: :commentable, dependent: :destroy
+
+  accepts_nested_attributes_for :tags, :comments
 
   validates :title, presence: true
   validates :description, presence: true
@@ -19,6 +21,19 @@ class Article < ApplicationRecord
     define_method "#{status_article}?" do 
       status == status_article  
     end
+  end
+
+  def self.filtered(params, current_user)
+    scope = params[:article_deleted].present? ? Article.deleted.limit(10) : Article.not_deleted.limit(10)
+
+    scope = scope.where('title ILIKE ?', "%#{params[:title].strip}%") if params[:title].present?
+    scope = scope.joins(:author).where(author: {first_name: "%#{params[:first_name].strip}%"}) if params[:first_name].present?
+    scope = scope.joins(:author).where(author: {last_name: "%#{params[:last_name].strip}%"}) if params[:last_name].present?
+    scope = scope.joins(:category).where(category: {name: "%#{params[:name].strip}%"}) if params[:category_name].present?
+    scope = scope.joins(:tags).where(tags: {name: "%#{params[:name].strip}%"}) if params[:tag_name].present?
+    scope = scope.where(created_at: Date.strptime("#{params[:date].strip}}", "%d-%m-%y").all_day) if params[:date]
+
+    scope = params[:per_page].present? ? scope.limit(params[:per_page].to_i) : scope.group(:id)
   end
 
   def destroy
