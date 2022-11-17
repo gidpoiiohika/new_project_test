@@ -12,7 +12,12 @@ Rails.application.routes.draw do
     }
   end
   resources :categories, only: [:index]
-  resources :articles
+  resources :articles do
+    member {
+      get :rollback
+      get :versions
+    }
+  end
   resources :users, only: [:show, :update]
   # authenticate :user, ->(user) { user.admin? } do
   #   mount Sidekiq::Web => '/sidekiq'

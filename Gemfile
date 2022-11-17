@@ -16,6 +16,7 @@ gem 'sidekiq'
 gem 'jbuilder'
 gem 'cancancan'
 gem 'aws-sdk-s3'
+gem 'paper_trail'
 
 group :development, :test do
   gem "letter_opener"

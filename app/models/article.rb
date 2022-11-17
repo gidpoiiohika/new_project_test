@@ -1,4 +1,5 @@
 class Article < ApplicationRecord
+  has_paper_trail on: [:update, :create]
   has_one_attached :cover
   
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'

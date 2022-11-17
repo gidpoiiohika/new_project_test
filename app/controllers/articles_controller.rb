@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_article, only: %i[ show update destroy ]
+  before_action :set_article, only: %i[ show update destroy version rollback]
 
   def index
     @articles = Article.filtered(filter_params, current_user)
@@ -30,6 +30,23 @@ class ArticlesController < ApplicationController
     if @article.destroy
       render :show
     end
+  end
+
+  def rollback
+    version_ids = @article.versions.limit(5).reverse.pluck(:id)
+
+    if version_ids.include? params[:version_id].to_i
+      Articles::RollbackService.call(@article, params)
+      render :show
+    else
+      render json: {
+        status: { code: 404, message: "Something went wrong" }
+      }
+    end
+  end
+
+  def versions
+    @versions = @article.versions
   end
 
   private
