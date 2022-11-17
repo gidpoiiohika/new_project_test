@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
+  has_one_attached :avatar
 
   devise :database_authenticatable, :recoverable, :registerable, :validatable, 
           :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
@@ -28,11 +29,11 @@ class User < ApplicationRecord
     super and self.unlocked?
   end
 
-  private
-
   def jwt_payload
     super
   end
+
+  private
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later(wait: 5.second)

@@ -15,6 +15,7 @@ gem "faker"
 gem 'sidekiq'
 gem 'jbuilder'
 gem 'cancancan'
+gem 'aws-sdk-s3'
 
 group :development, :test do
   gem "letter_opener"

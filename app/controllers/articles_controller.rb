@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :description, :author_id, :category_id, tags_attributes: [:name], comments_attributes: [:title, :user_id])
+    params.require(:article).permit(:cover, :title, :description, :author_id, :category_id, tags_attributes: [:name], comments_attributes: [:title, :user_id])
   end
 
   def filter_params
