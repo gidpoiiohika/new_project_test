@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
   has_many :articles, foreign_key: 'author_id'
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   enum role:   %i[admin author],     _default: "author"
   enum status: %i[blocked unlocked], _default: "unlocked"
 

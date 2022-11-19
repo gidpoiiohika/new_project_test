@@ -5,13 +5,13 @@ class CommentsController < ApplicationController
   def show; end
 
   def create
-    commentable = Article.find(params[:comment][:article_id])
+    commentable = Article.find(params[:article_id])
     @comment = commentable.comments.build comment_params
 
     if @comment.save
       render :show
     else
-      render json: { errors: @comment.errors.messages }, status: 404
+      render json: { errors: @comment.errors.messages }, status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
     if @comment.save
       render :show
     else
-      render json: { errors: @comment.errors.messages }, status: 404
+      render json: { errors: @comment.errors.messages }, status: :unprocessable_entity
     end
   end
 

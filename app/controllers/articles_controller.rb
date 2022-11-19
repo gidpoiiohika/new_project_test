@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
     if @article.save
       render :show
     else
-      render json: { errors: @article.errors.messages }, status: 404
+      render json: { errors: @article.errors.messages }, status: :unprocessable_entity
     end
   end
 
@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
     if @article.update article_params 
       render :show
     else
-      render json: { errors: @article.errors.messages }, status: 404
+      render json: { errors: @article.errors.messages }, status: :unprocessable_entity
     end
   end
 
@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
       render :show
     else
       render json: {
-        status: { code: 404, message: "Something went wrong" }
+        status: { status: :unprocessable_entity , message: "Something went wrong" }
       }
     end
   end

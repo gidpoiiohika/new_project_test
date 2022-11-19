@@ -6,9 +6,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
-  resources :comments, only: [:show, :create, :update] do
+  resources :comments, only: [:show, :create] do
     member {
-      post :ratings
+      get :ratings
     }
   end
   resources :categories, only: [:index]

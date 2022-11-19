@@ -10,7 +10,6 @@ RSpec.describe ArticlesController, type: :routing do
       expect(get: "/articles/1").to route_to("articles#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/articles").to route_to("articles#create")
     end
@@ -25,6 +24,14 @@ RSpec.describe ArticlesController, type: :routing do
 
     it "routes to #destroy" do
       expect(delete: "/articles/1").to route_to("articles#destroy", id: "1")
+    end
+
+    it "routes to #rollback" do
+      expect(get: "/articles/1/rollback").to route_to("articles#rollback", id: "1")
+    end
+
+    it "routes to #versions" do
+      expect(get: "/articles/1/versions").to route_to("articles#versions", id: "1")
     end
   end
 end

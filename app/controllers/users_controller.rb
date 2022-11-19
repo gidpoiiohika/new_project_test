@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.update user_params 
       render :show
     else
-      render json: { errors: @user.errors.messages }, status: 404
+      render json: { errors: @user.errors.messages }, status: :unprocessable_entity
     end
   end
 
@@ -19,6 +19,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:email, :first_name, :last_name, :password, :password_confirmation, :role, :status, :avatar)
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation, :role, :status, :avatar)
   end
 end

@@ -14,8 +14,6 @@ class Ability
       can [:index], Category
 
       can [:show, :create, :ratings], Comment
-
-      can [:show, :update], User, id: user.id
     end
   end
 end
