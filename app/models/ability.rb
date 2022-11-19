@@ -4,16 +4,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     if user.admin?
       can :manage, :all
     else
-      can [:update, :destroy], Article, author: user
-      can [:index, :show, :create], Article
+      can %i[update destroy], Article, author: user
+      can %i[index show create], Article
 
       can [:index], Category
 
-      can [:show, :create, :ratings], Comment
+      can %i[show create ratings], Comment
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id @comment.id
 json.title @comment.title
 json.rating @comment.rating

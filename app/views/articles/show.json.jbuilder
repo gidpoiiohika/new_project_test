@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id @article.id
 json.title @article.title
 json.description @article.description
@@ -21,7 +23,6 @@ json.category do
   json.id category.id
   json.name category.name
 end
-
 
 comments = @article.comments.sort_comment
 json.comments comments.each do |field|

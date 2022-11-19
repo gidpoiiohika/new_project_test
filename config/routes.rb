@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -6,22 +8,22 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     confirmations: 'users/confirmations'
   }
-  resources :comments, only: [:show, :create] do
-    member {
+  resources :comments, only: %i[show create] do
+    member do
       get :ratings
-    }
+    end
   end
   resources :categories, only: [:index]
   resources :articles do
-    member {
+    member do
       get :rollback
       get :versions
-    }
+    end
   end
-  resources :users, only: [:show, :update]
+  resources :users, only: %i[show update]
   # authenticate :user, ->(user) { user.admin? } do
   #   mount Sidekiq::Web => '/sidekiq'
   # end
-  
+
   mount Sidekiq::Web => '/sidekiq'
 end

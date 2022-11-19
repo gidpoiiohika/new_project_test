@@ -1,39 +1,37 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   has_one_attached :avatar
 
-  devise :database_authenticatable, :recoverable, :registerable, :validatable, 
-          :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
+  devise :database_authenticatable, :recoverable, :registerable, :validatable,
+         :confirmable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :articles, foreign_key: 'author_id'
 
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  enum role:   %i[admin author],     _default: "author"
-  enum status: %i[blocked unlocked], _default: "unlocked"
+  enum role:   %i[admin author],     _default: 'author'
+  enum status: %i[blocked unlocked], _default: 'unlocked'
 
-  ROLES = %w{ admin author }
-  STATUS = %w{ blocked unlocked }
+  ROLES = %w[admin author].freeze
+  STATUS = %w[blocked unlocked].freeze
 
   ROLES.each do |role_name|
-    define_method "#{role_name}?" do 
-      role == role_name  
+    define_method "#{role_name}?" do
+      role == role_name
     end
   end
 
   STATUS.each do |status_user|
-    define_method "#{status_user}?" do 
-      status == status_user  
+    define_method "#{status_user}?" do
+      status == status_user
     end
   end
 
   def active_for_authentication?
-    super and self.unlocked?
-  end
-
-  def jwt_payload
-    super
+    super and unlocked?
   end
 
   private

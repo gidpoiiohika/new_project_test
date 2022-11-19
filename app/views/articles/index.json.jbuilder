@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.articles @articles.each do |field|
   json.id field.id
   json.title field.title

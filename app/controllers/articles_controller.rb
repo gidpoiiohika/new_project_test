@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_article, only: %i[ show update destroy version rollback]
+  before_action :set_article, only: %i[show update destroy version rollback]
 
   def index
     @articles = Article.filtered(filter_params, current_user)
@@ -19,7 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if @article.update article_params 
+    if @article.update article_params
       render :show
     else
       render json: { errors: @article.errors.messages }, status: :unprocessable_entity
@@ -27,9 +29,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    if @article.destroy
-      render :show
-    end
+    return unless @article.destroy
+
+    render :show
   end
 
   def rollback
@@ -40,7 +42,7 @@ class ArticlesController < ApplicationController
       render :show
     else
       render json: {
-        status: { status: :unprocessable_entity , message: "Something went wrong" }
+        status: { status: :unprocessable_entity, message: 'Something went wrong' }
       }
     end
   end
@@ -56,7 +58,8 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:cover, :title, :description, :author_id, :category_id, tags_attributes: [:name], comments_attributes: [:title, :user_id])
+    params.require(:article).permit(:cover, :title, :description, :author_id, :category_id, tags_attributes: [:name],
+                                                                                            comments_attributes: %i[title user_id])
   end
 
   def filter_params
