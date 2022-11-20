@@ -9,7 +9,7 @@ RSpec.describe '/comments', type: :request do
   let(:valid_attributes) do
     {
       user_id: user.id,
-      title: 'test title'
+      title: Faker::JapaneseMedia::DragonBall.character
     }
   end
 
@@ -24,7 +24,7 @@ RSpec.describe '/comments', type: :request do
   let(:valid_attributes_show) do
     {
       user_id: user.id,
-      title: 'test title'
+      title: Faker::JapaneseMedia::DragonBall.character
     }
   end
 

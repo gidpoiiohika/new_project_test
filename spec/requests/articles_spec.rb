@@ -8,8 +8,8 @@ RSpec.describe '/articles', type: :request do
 
   let(:valid_attributes) do
     {
-      title: 'test title',
-      description: 'test description',
+      title: Faker::JapaneseMedia::DragonBall.character,
+      description: Faker::JapaneseMedia::DragonBall.race,
       author_id: user.id,
       category_id: create(:category).id
     }
@@ -17,8 +17,8 @@ RSpec.describe '/articles', type: :request do
 
   let(:invalid_attributes) do
     {
-      title: 'test title',
-      description: 'test description',
+      title: Faker::JapaneseMedia::DragonBall.character,
+      description: Faker::JapaneseMedia::DragonBall.race,
       author_id: create(:user).id
     }
   end
@@ -93,7 +93,7 @@ RSpec.describe '/articles', type: :request do
 
   describe 'PATCH /update' do
     let(:new_attributes) do
-      { title: 'dasdasd' }
+      { title: Faker::JapaneseMedia::DragonBall.race }
     end
 
     let(:new_attributes_invalid_attributes) do

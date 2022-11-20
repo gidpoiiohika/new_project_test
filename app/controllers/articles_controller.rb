@@ -63,6 +63,6 @@ class ArticlesController < ApplicationController
   end
 
   def filter_params
-    params.permit(:per_page, :article_deleted, :title, :date)
+    params.permit(:per_page, :article_deleted, :title, :date, :tag_name, :author_first_name, :author_last_name)
   end
 end

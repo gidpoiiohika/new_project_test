@@ -6,7 +6,7 @@ RSpec.describe '/users', type: :request do
   let(:user) { create(:user) }
 
   let(:new_attributes) do
-    { first_name: 'dasdasd' }
+    { first_name: Faker::Internet.username }
   end
 
   let(:new_attributes_invalid_attributes) do
