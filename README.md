@@ -4,18 +4,11 @@
 The setups steps expect following tools installed on the system.
 
 - GitHub
-- Ruby [3.0.1](https://github.com/gidpoiiohika/new_task_project/blob/master/Gemfile#L4)
-- Rails [7.0.3](https://github.com/gidpoiiohika/new_task_project/blob/master/Gemfile#L6)
+- Ruby 3.0.1
+- Rails 7.0.3
 - PostgreSQL 
 
 ## Install
-
-### Clone the repository
-
-```shell
-git git@github.com:gidpoiiohika/hospital.git
-cd hospital
-```
 
 ### Check your Ruby version
 
@@ -51,10 +44,16 @@ gmail_user_name = Your mail
 gmail_user_password = [link](https://support.google.com/accounts/answer/185833?hl=en)
 
 ### Initialize the database
-- seeds.rb [seed](https://github.com/gidpoiiohika/new_project_test_index/blob/master/db/seeds.rb#L1)
 
 ```shell
 rails db:create db:migrate db:seed
+```
+
+### Run rails server
+```shell
+redis-server
+bundle exec sidekiq
+rails s
 ```
 
 ### Docker
