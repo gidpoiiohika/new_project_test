@@ -44,6 +44,7 @@ run command "add your details:"
 EDITOR="vim" bin/rails credentials:edit
 ```
 <img width="1029" alt="Screenshot 2022-11-21 at 00 09 03" src="https://user-images.githubusercontent.com/25199412/202928914-40ce2e97-7fcf-461d-8670-e88b564c1b97.png">
+
 access_key_id and secret_access_key = [link](https://aws.amazon.com/ru/premiumsupport/knowledge-center/create-access-key/)
 
 gmail_user_name = Your mail
@@ -66,7 +67,8 @@ rails db:create db:migrate db:seed
 EDITOR="vim" bin/rails credentials:edit
 ```
 <img width="1029" alt="Screenshot 2022-11-21 at 00 09 03" src="https://user-images.githubusercontent.com/25199412/202928914-40ce2e97-7fcf-461d-8670-e88b564c1b97.png">
-access_key_id and secret_access_key = [link](https://aws.amazon.com/ru/premiumsupport/knowledge-center/create-access-key/)
+
+access_key_id and secret_access_key = [link](https://aws.amazon.com/ru/premiumsupport/knowledge-center/create-access-key)
 
 gmail_user_name = Your mail
 gmail_user_password = [link](https://support.google.com/accounts/answer/185833?hl=en)
