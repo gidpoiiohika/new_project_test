@@ -4,7 +4,7 @@ users = []
              last_name: Faker::Internet.username, password: Faker::Internet.password(min_length: 8) }
 end
 
-User.insert_all(articles)
+User.insert_all(users)
 
 categories = []
 3.times do
